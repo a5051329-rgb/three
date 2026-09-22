@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="BCL 名單蒐集第三條路：以育兒實用工具箱創造會員綁定價值的方向提案。">
+  <title>BCL 名單蒐集｜第三條路：育兒實用工具箱</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 rx=%2216%22 fill=%22%23102a43%22/><path d=%22M18 21h28v24H18z%22 fill=%22%23f7b955%22/><path d=%22M25 21v-5h14v5%22 fill=%22none%22 stroke=%22white%22 stroke-width=%224%22/><path d=%22M18 30h28%22 stroke=%22%23102a43%22 stroke-width=%224%22/></svg>">
+  <style>
+    :root {
+      --ink: #102a43;
+      --ink-2: #334e68;
+      --muted: #627d98;
+      --line: #d9e2ec;
+      --paper: #f6f8fb;
+      --white: #ffffff;
+      --blue: #1769aa;
+      --blue-soft: #e8f1f8;
+      --orange: #e88632;
+      --orange-soft: #fff1e4;
+      --green: #2b7a68;
+      --green-soft: #e7f4ef;
+      --red: #b7473b;
+      --shadow: 0 18px 55px rgba(16,42,67,.10);
+      --radius: 20px;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+      line-height: 1.65;
+    }
+    button, a { font: inherit; }
+    a { color: inherit; }
+    .skip { position: absolute; left: -999px; }
+    .skip:focus { left: 16px; top: 16px; z-index: 99; background: white; padding: 8px 12px; }
+    .page { min-height: 100vh; }
+    .rail {
+      position: fixed; inset: 0 auto 0 0; width: 248px; padding: 28px 22px;
+      background: var(--ink); color: #fff; z-index: 10; display: flex; flex-direction: column;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .04em; }
+    .brand-mark { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 11px; background: var(--orange); color: var(--ink); font-size: 13px; }
+    .rail-note { color: #bcccdc; font-size: 13px; margin: 18px 0 24px; }
+    .nav { display: grid; gap: 6px; }
+    .nav a { color: #bcccdc; text-decoration: none; padding: 9px 12px; border-radius: 9px; font-size: 14px; transition: .2s ease; }
+    .nav a:hover, .nav a.active { color: white; background: rgba(255,255,255,.11); }
+    .rail-bottom { margin-top: auto; }
+    .print-btn { width: 100%; cursor: pointer; border: 1px solid rgba(255,255,255,.3); color: white; background: transparent; border-radius: 10px; padding: 10px 12px; }
+    .print-btn:hover { background: rgba(255,255,255,.1); }
+    main { margin-left: 248px; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 42px; }
+    section { padding: 84px 0; border-bottom: 1px solid var(--line); }
+    .hero { background: var(--white); min-height: 92vh; display: flex; align-items: center; position: relative; overflow: hidden; }
+    .hero::after { content: "03"; position: absolute; right: 2vw; bottom: -120px; font: 900 360px/1 Arial; color: #eef3f7; pointer-events: none; }
+    .hero .wrap { width: 100%; position: relative; z-index: 1; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--blue); font-weight: 800; letter-spacing: .12em; font-size: 13px; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 28px; height: 3px; background: var(--orange); }
+    h1 { margin: 22px 0 20px; max-width: 900px; font-size: clamp(44px, 6vw, 78px); line-height: 1.08; letter-spacing: -.05em; }
+    h1 span { color: var(--blue); }
+    .hero-lead { max-width: 790px; font-size: clamp(20px, 2.2vw, 29px); line-height: 1.45; color: var(--ink-2); }
+    .hero-ask { margin-top: 40px; display: inline-block; max-width: 820px; padding: 20px 24px; border-left: 5px solid var(--orange); background: var(--orange-soft); font-weight: 700; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+    .chip { border: 1px solid var(--line); background: white; color: var(--ink-2); border-radius: 999px; padding: 6px 11px; font-size: 13px; }
+    .section-head { display: grid; grid-template-columns: 150px 1fr; gap: 30px; margin-bottom: 44px; }
+    .section-no { color: var(--orange); font: 800 15px/1.2 Arial; letter-spacing: .15em; padding-top: 8px; }
+    h2 { font-size: clamp(32px, 4vw, 52px); line-height: 1.17; letter-spacing: -.035em; margin: 0 0 12px; }
+    .section-intro { margin: 0; max-width: 760px; color: var(--muted); font-size: 18px; }
+    .decision { background: var(--ink); color: white; border-radius: 26px; padding: 34px; box-shadow: var(--shadow); }
+    .decision small { color: #9fb3c8; letter-spacing: .12em; font-weight: 800; }
+    .decision blockquote { margin: 16px 0 0; font-size: clamp(25px, 3vw, 39px); line-height: 1.35; font-weight: 800; letter-spacing: -.025em; }
+    .decision blockquote em { color: #ffd18a; font-style: normal; }
+    .route-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 28px; }
+    .route { min-height: 290px; background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 25px; position: relative; }
+    .route.current { border: 2px solid var(--blue); box-shadow: var(--shadow); }
+    .route-tag { font-size: 12px; letter-spacing: .1em; font-weight: 900; color: var(--muted); }
+    .route.current .route-tag { color: var(--blue); }
+    .route h3 { font-size: 24px; line-height: 1.3; margin: 14px 0 12px; }
+    .route p { margin: 0; color: var(--muted); }
+    .route .logic { position: absolute; left: 25px; bottom: 22px; right: 25px; border-top: 1px solid var(--line); padding-top: 13px; font-size: 14px; color: var(--ink-2); font-weight: 700; }
+    .route.current .logic { color: var(--blue); }
+    .arrow-band { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 38px; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: white; }
+    .arrow-step { padding: 24px; position: relative; min-height: 130px; }
+    .arrow-step + .arrow-step { border-left: 1px solid var(--line); }
+    .arrow-step + .arrow-step::before { content: "›"; position: absolute; left: -9px; top: 43px; width: 18px; height: 32px; background: white; color: var(--orange); font: 700 28px/32px Arial; text-align: center; }
+    .arrow-step b { display: block; font-size: 17px; margin-bottom: 6px; }
+    .arrow-step span { color: var(--muted); font-size: 14px; }
+    .choice-logic { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 34px; }
+    .choice-card { position: relative; min-height: 270px; padding: 27px; border-radius: var(--radius); background: white; border: 1px solid var(--line); overflow: hidden; }
+    .choice-card::after { content: attr(data-step); position: absolute; right: 16px; bottom: -22px; color: #eef3f7; font: 900 96px/1 Arial; }
+    .choice-card:nth-child(3) { background: var(--ink); border-color: var(--ink); color: white; }
+    .choice-card:nth-child(3)::after { color: rgba(255,255,255,.07); }
+    .choice-kicker { color: var(--orange); font-size: 12px; font-weight: 900; letter-spacing: .12em; }
+    .choice-card h3 { position: relative; z-index: 1; margin: 13px 0 10px; font-size: 24px; line-height: 1.35; }
+    .choice-card p { position: relative; z-index: 1; margin: 0; color: var(--muted); }
+    .choice-card:nth-child(3) p { color: #bcccdc; }
+    .choice-result { position: relative; z-index: 1; display: block; margin-top: 18px; padding-top: 15px; border-top: 1px solid var(--line); color: var(--blue); font-weight: 800; }
+    .choice-card:nth-child(3) .choice-result { border-color: rgba(255,255,255,.18); color: #ffd18a; }
+    .subhead { margin: 0 0 17px; font-size: 21px; }
+    .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .principle { padding: 25px; border-radius: var(--radius); background: white; border-top: 5px solid var(--blue); }
+    .principle:nth-child(2) { border-color: var(--orange); }
+    .principle:nth-child(3) { border-color: var(--green); }
+    .principle h3 { font-size: 25px; margin: 8px 0; }
+    .principle p { color: var(--muted); margin: 0; }
+    .guardrails { margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; background: white; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    .guard { padding: 28px; }
+    .guard + .guard { border-left: 1px solid var(--line); }
+    .guard h3 { margin: 0 0 14px; }
+    .guard ul { padding-left: 20px; margin: 0; }
+    .guard li { margin: 7px 0; color: var(--ink-2); }
+    .guard.no h3 { color: var(--red); }
+    .research-case { margin-top: 30px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 20px; }
+    .case-main, .case-side { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
+    .case-main h3 { font-size: 26px; margin: 0 0 16px; }
+    .depth-row { display: grid; grid-template-columns: 105px 1fr; gap: 16px; padding: 14px 0; border-top: 1px solid var(--line); }
+    .depth-row b { color: var(--blue); }
+    .depth-row p { margin: 0; color: var(--ink-2); }
+    .case-side { background: var(--blue-soft); border: 0; }
+    .case-side h3 { margin-top: 0; }
+    .case-side ol { padding-left: 22px; }
+    .case-side li { margin: 12px 0; }
+    .tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    details.tool { background: white; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    details.tool[open] { border-color: #9fb3c8; box-shadow: 0 12px 35px rgba(16,42,67,.08); }
+    .tool summary { cursor: pointer; list-style: none; padding: 27px; display: grid; grid-template-columns: 50px 1fr 28px; gap: 14px; align-items: start; }
+    .tool summary::-webkit-details-marker { display:none; }
+    .tool-icon { width: 48px; height: 48px; border-radius: 14px; background: var(--blue-soft); display: grid; place-items: center; font-size: 24px; }
+    .tool:nth-child(2) .tool-icon { background: var(--green-soft); }
+    .tool:nth-child(3) .tool-icon { background: var(--orange-soft); }
+    .tool:nth-child(4) .tool-icon { background: #eeeaf8; }
+    .tool h3 { margin: 0 0 5px; font-size: 23px; }
+    .tool summary p { margin: 0; color: var(--muted); font-size: 14px; }
+    .plus { font: 300 28px/1 Arial; color: var(--blue); transition: transform .2s ease; }
+    details[open] .plus { transform: rotate(45deg); }
+    .tool-body { border-top: 1px solid var(--line); padding: 0 27px 27px; }
+    .tool-block { margin-top: 20px; }
+    .tool-block b { display: block; margin-bottom: 5px; color: var(--blue); }
+    .tool-block p { margin: 0; color: var(--ink-2); }
+    .tool-output { margin-top: 18px; padding: 15px 17px; border-radius: 12px; background: var(--paper); color: var(--ink-2); font-size: 14px; }
+    .tool-note { margin-top: 30px; padding: 18px 22px; background: var(--orange-soft); border-radius: 14px; color: #744719; }
+    .unlock-demo { display: grid; grid-template-columns: 1fr 84px 1fr; align-items: stretch; gap: 18px; }
+    .state-card { border-radius: var(--radius); padding: 28px; background: white; border: 1px solid var(--line); }
+    .state-card.full { background: var(--ink); color: white; border: 0; }
+    .state-label { display: inline-block; font-size: 12px; font-weight: 900; letter-spacing: .1em; border-radius: 999px; padding: 5px 9px; background: var(--paper); color: var(--muted); }
+    .full .state-label { background: rgba(255,255,255,.13); color: #d9e2ec; }
+    .state-card h3 { font-size: 27px; margin: 16px 0 8px; }
+    .state-card p { color: var(--muted); }
+    .state-card.full p { color: #bcccdc; }
+    .mock { display: grid; gap: 8px; margin-top: 20px; }
+    .mock-line { height: 10px; background: #d9e2ec; border-radius: 9px; }
+    .mock-line.short { width: 58%; }
+    .mock-line.blur { filter: blur(4px); opacity: .55; }
+    .full .mock-line { background: #627d98; }
+    .full .mock-line.ok { background: #6ed0b5; }
+    .unlock-arrow { display: grid; place-items: center; color: var(--orange); font-size: 42px; }
+    .system-limit { margin-top: 22px; padding: 20px 23px; border: 1px dashed #9fb3c8; border-radius: 14px; color: var(--ink-2); background: #fafdff; }
+    .funnel { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 26px; }
+    .funnel-step { min-height: 112px; padding: 17px; border-radius: 14px; background: white; border: 1px solid var(--line); position: relative; }
+    .funnel-step + .funnel-step::before { content: "→"; position: absolute; left: -15px; top: 37px; z-index: 1; width: 22px; text-align: center; background: var(--paper); color: var(--orange); font-weight: 900; }
+    .funnel-step b { display: block; margin-bottom: 7px; }
+    .funnel-step span { font-size: 13px; color: var(--muted); }
+    .measure-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .measure { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+    .measure small { color: var(--orange); font-weight: 900; letter-spacing: .08em; }
+    .measure h3 { margin: 9px 0; font-size: 22px; }
+    .measure p { margin: 0; color: var(--muted); font-size: 14px; }
+    .ad-note { margin-top: 22px; display: grid; grid-template-columns: auto 1fr; gap: 16px; background: var(--ink); color: white; border-radius: 15px; padding: 20px 22px; }
+    .ad-note b { color: #ffd18a; white-space: nowrap; }
+    .ad-note p { margin: 0; color: #d9e2ec; }
+    .next-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .next { background: white; border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
+    .next .n { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); color: white; font-weight: 900; }
+    .next h3 { font-size: 19px; margin: 14px 0 8px; }
+    .next p { font-size: 14px; color: var(--muted); margin: 0; }
+    .approval { margin-top: 30px; background: var(--orange-soft); border: 1px solid #f2c38f; border-radius: var(--radius); padding: 28px; }
+    .approval h3 { margin: 0 0 12px; font-size: 25px; }
+    .approval ul { margin: 0; padding-left: 20px; }
+    .approval li { margin: 7px 0; }
+    .closing { background: var(--ink); color: white; padding: 70px 0; }
+    .closing h2 { max-width: 930px; }
+    .closing p { color: #bcccdc; max-width: 780px; font-size: 18px; }
+    .closing .foot { margin-top: 34px; font-size: 12px; color: #829ab1; }
+    @media (max-width: 980px) {
+      .rail { position: sticky; top: 0; width: 100%; height: auto; padding: 12px 18px; flex-direction: row; align-items: center; overflow-x: auto; }
+      .rail-note, .rail-bottom { display: none; }
+      .brand { margin-right: 16px; white-space: nowrap; }
+      .brand-mark { width: 32px; height: 32px; }
+      .nav { display: flex; }
+      .nav a { white-space: nowrap; padding: 7px 9px; }
+      main { margin-left: 0; }
+      .wrap { padding: 0 26px; }
+      .hero { min-height: auto; padding: 80px 0; }
+      .route-grid, .choice-logic, .principles, .measure-grid { grid-template-columns: 1fr; }
+      .route { min-height: 235px; }
+      .research-case, .tool-grid { grid-template-columns: 1fr; }
+      .next-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 660px) {
+      section { padding: 60px 0; }
+      .wrap { padding: 0 18px; }
+      .section-head { grid-template-columns: 1fr; gap: 8px; }
+      .arrow-band, .funnel { grid-template-columns: 1fr; }
+      .arrow-step + .arrow-step { border-left: 0; border-top: 1px solid var(--line); }
+      .arrow-step + .arrow-step::before, .funnel-step + .funnel-step::before { display: none; }
+      .guardrails { grid-template-columns: 1fr; }
+      .guard + .guard { border-left: 0; border-top: 1px solid var(--line); }
+      .unlock-demo { grid-template-columns: 1fr; }
+      .unlock-arrow { min-height: 45px; transform: rotate(90deg); }
+      .next-grid { grid-template-columns: 1fr; }
+      .hero::after { font-size: 210px; bottom: -60px; }
+      .tool summary { grid-template-columns: 46px 1fr 24px; padding: 22px; }
+      .depth-row { grid-template-columns: 1fr; gap: 4px; }
+      .ad-note { grid-template-columns: 1fr; }
+    }
+    @media print {
+      @page { size: A4; margin: 14mm; }
+      body { background: white; font-size: 10pt; }
+      .rail { display: none; }
+      main { margin: 0; }
+      .wrap { max-width: none; padding: 0; }
+      section, .hero, .closing { padding: 16mm 0; break-inside: avoid; }
+      .hero { min-height: auto; }
+      .hero::after { display: none; }
+      h1 { font-size: 38pt; }
+      h2 { font-size: 27pt; }
+      .route-grid, .choice-logic, .principles, .measure-grid, .tool-grid { gap: 8px; }
+      .route, .choice-card, .principle, .measure, details.tool, .state-card, .next { box-shadow: none; break-inside: avoid; }
+      details.tool .tool-body { display: block; }
+      .plus { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">跳至主要內容</a>
+  <div class="page">
+    <aside class="rail" aria-label="章節導覽">
+      <div class="brand"><span class="brand-mark">BCL</span><span>第三條路</span></div>
+      <p class="rail-note">方向提案版<br>供主管決策與跨部門對齊</p>
+      <nav class="nav">
+        <a href="#decision">決策摘要</a>
+        <a href="#why">為何是工具箱</a>
+        <a href="#pain">從難處出發</a>
+        <a href="#tools">工具構想</a>
+        <a href="#unlock">會員解鎖</a>
+        <a href="#ads">投廣衡量</a>
+        <a href="#next">下一步</a>
+      </nav>
+      <div class="rail-bottom"><button class="print-btn" type="button" onclick="window.print()">列印／另存 PDF</button></div>
+    </aside>
+
+    <main id="main">
+      <header class="hero">
+        <div class="wrap">
+          <div class="eyebrow">BCL 名單蒐集策略提案</div>
+          <h1>第三條路：<br><span>育兒實用工具箱</span></h1>
+          <p class="hero-lead">從一次性的活動與獎品誘因，走向以真實育兒需求換得綁定意願的長期入口。</p>
+          <div class="hero-ask">本次希望確認：是否同意以「實用知識 × 互動工具 × 會員解鎖」作為第三條名單蒐集路徑，並進入家長痛點研究與首波工具原型階段。</div>
+          <div class="hero-meta">
+            <span class="chip">家長使用，不是兒童遊戲</span>
+            <span class="chip">完整內容限綁定會員</span>
+            <span class="chip">第一階段不保存使用歷程</span>
+            <span class="chip">2026.09｜方向提案版</span>
+          </div>
+        </div>
+      </header>
+
+      <section id="decision">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="section-no">01 / DECISION</div>
+            <div><h2>我們要改變的，不只是活動題目</h2><p class="section-intro">第三條路要建立一個新的名單交換邏輯：品牌先提供可立即使用的價值，家長再以完成 BCL 綁定解鎖完整工具。</p></div>
+          </div>
+          <div class="decision">
+            <small>一句話提案</small>
+            <blockquote>把綁定從「參加活動的門票」，轉變為<em>「使用實用育兒工具的會員資格」</em>。</blockquote>
+          </div>
+
+          <div class="route-grid" aria-label="三條名單蒐集路徑比較">
+            <article class="route">
+              <div class="route-tag">ROUTE 01｜既有</div>
+              <h3>心理測驗／問答活動</h3>
+              <p>多由外部代操，以好奇結果、短期趣味，加上抽獎或禮物吸引參與。</p>
+              <div class="logic">主要交換：完成互動 → 取得結果／抽獎資格</div>
+            </article>
+            <article class="route">
+              <div class="route-tag">ROUTE 02｜既有</div>
+              <h3>育兒大調查</h3>
+              <p>由內部自操，讓家長分享育兒經驗、查看調查結果，並搭配抽獎或禮物。</p>
+              <div class="logic">主要交換：提供意見 → 查看結果／抽獎資格</div>
+            </article>
+            <article class="route current">
+              <div class="route-tag">ROUTE 03｜本次提案</div>
+              <h3>育兒實用工具箱</h3>
+              <p>針對家長當下的決策困難，透過少量輸入，交付可直接採取的結果。</p>
+              <div class="logic">主要交換：完成綁定 → 解鎖完整實用價值</div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="why">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="section-no">02 / WHY</div>
+            <div><h2>為什麼選擇「工具箱」</h2><p class="section-intro">這不是先有工具形式、再替它找理由，而是從既有名單蒐集的限制出發：我們需要一個不只靠獎品，也能讓家長願意綁定的新價值交換。</p></div>
+          </div>
+
+          <div class="choice-logic" aria-label="選擇工具箱的思考邏輯">
+            <article class="choice-card" data-step="1">
+              <div class="choice-kicker">思考起點</div>
+              <h3>既有兩條路都偏向「一次性活動」</h3>
+              <p>心理測驗、問答與調查可以帶來名單，但家長主要為結果、抽獎或禮物而來。若第三條路只是再換一種題目，參與邏輯並沒有真正改變。</p>
+              <span class="choice-result">因此：第三條路不能只是新的活動包裝。</span>
+            </article>
+            <article class="choice-card" data-step="2">
+              <div class="choice-kicker">策略目標</div>
+              <h3>建立「即使沒有獎品，也值得綁定」的理由</h3>
+              <p>希望家長因為眼前確實有一個育兒問題需要解決，而主動取得完整內容；同時讓入口能因不同情境再次被使用，而非活動結束就失去價值。</p>
+              <span class="choice-result">目標：從誘因驅動，逐步走向需求驅動。</span>
+            </article>
+            <article class="choice-card" data-step="3">
+              <div class="choice-kicker">為何是工具箱</div>
+              <h3>工具能把品牌知識變成可立即採取的下一步</h3>
+              <p>它讓家長輸入當下條件，再得到篩選、組合、比較或規劃結果。這比單向文章更有個人關聯，也比測驗更接近解決問題，同時不必依賴長期紀錄功能。</p>
+              <span class="choice-result">所以：工具本身就能成為會員限定價值。</span>
+            </article>
+          </div>
+
+          <h3 class="subhead">工具箱成立的三個條件</h3>
+          <div class="principles">
+            <article class="principle"><div class="eyebrow">Condition 01</div><h3>有用</h3><p>必須對應真實且具體的育兒困難，讓家長用少量輸入，取得可直接採取的結果，而不是再讀一篇知識文章。</p></article>
+            <article class="principle"><div class="eyebrow">Condition 02</div><h3>有互動感</h3><p>互動是為了提高結果的情境適配度，以選擇、組合、篩選與比較完成；不是把內容幼兒化，也不靠答題對錯。</p></article>
+            <article class="principle"><div class="eyebrow">Condition 03</div><h3>有自然回訪理由</h3><p>家長會因日期、孩子階段或家庭條件改變而再次使用，不必依賴任務、打卡，或目前尚無法提供的歷程保存。</p></article>
+          </div>
+
+          <div class="guardrails">
+            <div class="guard">
+              <h3>選擇與設計時要考慮</h3>
+              <ul>
+                <li>痛點夠深：是否真的造成焦慮、耗時或決策困難？</li>
+                <li>單次有價值：無法保存歷程時，當次結果是否仍完整可用？</li>
+                <li>內容可維運：是否有可靠來源、專業審閱與更新責任？</li>
+                <li>適合解鎖：預覽能說明價值，完整結果又值得家長完成綁定？</li>
+              </ul>
+            </div>
+            <div class="guard no">
+              <h3>工具箱不應發展成</h3>
+              <ul>
+                <li>換皮後仍然只是「問 A、答 A」</li>
+                <li>偏幼兒操作的簡單遊戲化</li>
+                <li>要求家長打卡、上傳作業或做每日任務</li>
+                <li>與 BabyMine 重疊的一般育兒紀錄</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="arrow-band">
+            <div class="arrow-step"><b>看見真實難處</b><span>不只停在「想要什麼功能」</span></div>
+            <div class="arrow-step"><b>找出決策負擔</b><span>辨識耗時、不確定與容易放棄的步驟</span></div>
+            <div class="arrow-step"><b>交付可用結果</b><span>讓家長當下就能閱讀、比較或行動</span></div>
+            <div class="arrow-step"><b>以完整價值促成綁定</b><span>綁定的理由來自工具，而非只有禮物</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pain">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="section-no">03 / INSIGHT</div>
+            <div><h2>先理解難處，再決定做什麼工具</h2><p class="section-intro">表面需求只是入口。真正會驅動使用與綁定的，是背後反覆出現的壓力、風險與選擇負擔。</p></div>
+          </div>
+
+          <div class="research-case">
+            <article class="case-main">
+              <h3>例：家長需要的不是「一篇故事」</h3>
+              <div class="depth-row"><b>表面需求</b><p>今晚找一則可以念給孩子聽的睡前故事。</p></div>
+              <div class="depth-row"><b>深層難處</b><p>孩子難入睡或夜醒，壓縮家長休息、影響隔日生活；家長想建立平穩、可重複的睡前儀式。</p></div>
+              <div class="depth-row"><b>現有缺口</b><p>故事可能過長、太刺激、年齡不合；家長在最疲累的時候還要搜尋、挑選與改寫。</p></div>
+              <div class="depth-row"><b>工具機會</b><p>用孩子姓名、角色、氛圍與長度，快速組成一則可直接朗讀的內容，降低準備負擔。</p></div>
+            </article>
+            <aside class="case-side">
+              <h3>研究要先回答</h3>
+              <ol>
+                <li>什麼情境最常發生、壓力最大？</li>
+                <li>家長現在怎麼處理？最卡在哪一步？</li>
+                <li>什麼完整結果值得完成綁定才取得？</li>
+                <li>資料來源、審閱與更新責任是什麼？</li>
+                <li>不能保存歷程時，單次使用是否仍有價值？</li>
+              </ol>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="tools">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="section-no">04 / TOOL IDEAS</div>
+            <div><h2>目前四個工具方向</h2><p class="section-intro">這是用來說明「工具箱長什麼樣」的候選方向，不是已確定的開發清單；最終仍需由家長痛點研究與技術評估排序。</p></div>
+          </div>
+
+          <div class="tool-grid">
+            <details class="tool" open>
+              <summary><span class="tool-icon" aria-hidden="true">☾</span><span><h3>專屬睡前故事</h3><p>降低疲累時尋找與改寫故事的負擔</p></span><span class="plus">＋</span></summary>
+              <div class="tool-body">
+                <div class="tool-block"><b>家長真正卡住的事</b><p>孩子難入睡或夜醒時，家長也承受睡眠不足與隔日壓力；想建立睡前儀式，卻未必有合適的故事可立即使用。</p></div>
+                <div class="tool-block"><b>互動方式</b><p>輸入孩子姓名，選角色、故事氛圍與 3／5 分鐘長度，由事前建立並審閱的模組化故事資料庫組成內容，不使用生成式 AI。</p></div>
+                <div class="tool-output">輸出：當次可直接朗讀的完整故事＋固定收尾句。定位是減少準備負擔，不宣稱治療夜醒或改善睡眠問題。</div>
+              </div>
+            </details>
+
+            <details class="tool" open>
+              <summary><span class="tool-icon" aria-hidden="true">◒</span><span><h3>副食品冒險</h3><p>把每日資訊焦慮轉成下一餐的決策協助</p></span><span class="plus">＋</span></summary>
+              <div class="tool-body">
+                <div class="tool-block"><b>家長真正卡住的事</b><p>不只是今天煮什麼，還要同時判斷食材是否吃過、可能反應、質地、尺寸、烹調方式與拒吃；資訊愈多，決策可能愈重。</p></div>
+                <div class="tool-block"><b>互動方式</b><p>選孩子階段、已嘗試食材、家中現有食材與烹調偏好，產生當次菜單靈感與處理建議。</p></div>
+                <div class="tool-output">輸出：食材組合、菜單靈感、烹調方式與過敏原接觸資訊。涉及健康內容需專業審閱，不以「篩檢」或診斷表述。</div>
+              </div>
+            </details>
+
+            <details class="tool">
+              <summary><span class="tool-icon" aria-hidden="true">祝</span><span><h3>抓周企劃室</h3><p>把一次性里程碑的資訊超載變成可執行規劃</p></span><span class="plus">＋</span></summary>
+              <div class="tool-body">
+                <div class="tool-block"><b>家長真正卡住的事</b><p>第一次辦抓周，還要兼顧長輩期待、寶寶作息、場地、攝影、餐食、設備與預算，資訊分散且出錯成本高。</p></div>
+                <div class="tool-block"><b>互動方式</b><p>選地區、人數、自備／套裝，以及攝影、餐飲、停車、哺乳室、尿布台與推車需求。</p></div>
+                <div class="tool-output">輸出：場地建議與一致格式比較、物品清單、傳統意涵、儀式流程、官方連結與最後確認日期。抓周結果只作文化祝福。</div>
+              </div>
+            </details>
+
+            <details class="tool">
+              <summary><span class="tool-icon" aria-hidden="true">⌖</span><span><h3>週末出去玩提案</h3><p>從「景點很多」變成「今天適不適合我家」</p></span><span class="plus">＋</span></summary>
+              <div class="tool-body">
+                <div class="tool-block"><b>家長真正卡住的事</b><p>帶嬰幼兒出門要同時看作息、餵食、車程、天氣、人潮、推車、尿布台與哺乳空間；一般 Top 10 清單無法快速回答今天適不適合。</p></div>
+                <div class="tool-block"><b>互動方式</b><p>選地區／距離、室內外、可用時間、預算與必要親子設施，改變條件即可重新取得結果。</p></div>
+                <div class="tool-output">輸出：3–5 個合適去處，統一呈現適齡、車程、停留時間、設施、費用／預約、雨備、官方連結與最後確認日期。</div>
+              </div>
+            </details>
+          </div>
+          <div class="tool-note"><strong>重要：</strong>回訪來自「每次情境不同，所以工具仍然有用」，不是要求家長做任務；工具是給家長操作，因此互動語言與視覺應成熟、有效率，不幼稚化。</div>
+        </div>
+      </section>
+
+      <section id="unlock">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="section-no">05 / UNLOCK</div>
+            <div><h2>用 A／B 頁面形成會員解鎖</h2><p class="section-intro">未綁定者先看見工具與自己的關係，也能預覽部分結果；完成資料提供與手機驗證後，回到完整工具內容。</p></div>
+          </div>
+
+          <div class="unlock-demo">
+            <article class="state-card">
+              <span class="state-label">未綁定／未完成驗證</span>
+              <h3>A. 價值預覽</h3>
+              <p>可看工具用途、部分選項與部分結果，清楚知道解鎖後會得到什麼。</p>
+              <div class="mock"><span class="mock-line short"></span><span class="mock-line"></span><span class="mock-line blur"></span><span class="mock-line short blur"></span></div>
+            </article>
+            <div class="unlock-arrow" aria-label="完成綁定後">→</div>
+            <article class="state-card full">
+              <span class="state-label">已完成 BCL 綁定</span>
+              <h3>B. 完整工具</h3>
+              <p>開放完整選項與結果，依本次輸入產生當下可直接使用的內容。</p>
+              <div class="mock"><span class="mock-line short ok"></span><span class="mock-line"></span><span class="mock-line"></span><span class="mock-line short"></span></div>
+            </article>
+          </div>
+          <div class="system-limit"><strong>第一階段系統邊界：</strong>可以辨識會員狀態、呈現不同完整度，並依本次輸入產生結果；目前不能承諾保存設定、進度、收藏、企劃結果、Cookie 記憶或跨次使用歷史。</div>
+        </div>
+      </section>
+
+      <section id="ads">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="section-no">06 / ACQUISITION</div>
+            <div><h2>一樣投廣，但改變主訊息與判讀方式</h2><p class="section-intro">第三條路的廣告賣點是「這個工具能替我解決什麼問題」。三條路若同期投放，必須分流標記並用同一套漏斗口徑比較。</p></div>
+          </div>
+
+          <div class="funnel" aria-label="第三條路投廣漏斗">
+            <div class="funnel-step"><b>痛點素材</b><span>說清楚具體情境與工具價值</span></div>
+            <div class="funnel-step"><b>到站預覽</b><span>先看見部分價值，不直接撞上表單</span></div>
+            <div class="funnel-step"><b>解鎖意圖</b><span>點擊「解鎖完整內容」</span></div>
+            <div class="funnel-step"><b>完成 BCL</b><span>資料提供＋手機驗證</span></div>
+            <div class="funnel-step"><b>取得結果</b><span>回到工具，使用完整內容</span></div>
+          </div>
+
+          <div class="measure-grid">
+            <article class="measure"><small>01｜廣告吸引力</small><h3>需求是否成立</h3><p>花費、觸及／曝光、CTR、CPC、素材與主題表現；同時檢查受眾重疊與互相競價。</p></article>
+            <article class="measure"><small>02｜綁定漏斗</small><h3>價值能否推動完成</h3><p>到站、解鎖點擊、表單開始、手機驗證、完成 BCL、各步驟流失與 CPB。</p></article>
+            <article class="measure"><small>03｜名單品質</small><h3>不只看數量</h3><p>7–12 月培養族群、12–17 月立即銷售族群占比，以及後續封鎖、互動與轉換。</p></article>
+          </div>
+          <div class="ad-note"><b>比較原則</b><p>Route 1、2、3 分開廣告活動、落地頁與來源標記；盡量控制期間、受眾、地區、預算級距與完成定義。現階段「工具路徑效率較高」只是待驗證假設，正式 KPI 與基準值另與 DATA 核對。</p></div>
+        </div>
+      </section>
+
+      <section id="next">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="section-no">07 / NEXT</div>
+            <div><h2>建議先確認方向，再選 1–2 個原型</h2><p class="section-intro">不一次開發完整工具箱。先找出最值得解決的問題，再驗證家長是否願意為完整結果完成綁定。</p></div>
+          </div>
+
+          <div class="next-grid">
+            <article class="next"><span class="n">1</span><h3>痛點驗證</h3><p>整理客服／社群與既有回饋，搭配家長訪談，確認高頻、高壓力情境。</p></article>
+            <article class="next"><span class="n">2</span><h3>內容與原型</h3><p>定義輸入、輸出、預覽與解鎖點，製作低擬真頁面與內容樣本。</p></article>
+            <article class="next"><span class="n">3</span><h3>技術與資料</h3><p>確認會員狀態、綁定回跳、資料來源、專業審閱與更新責任。</p></article>
+            <article class="next"><span class="n">4</span><h3>上線與比較</h3><p>建立來源標記與共同儀表，與既有兩路同期觀察完整漏斗。</p></article>
+          </div>
+
+          <div class="approval">
+            <h3>本次希望主管確認的四件事</h3>
+            <ul>
+              <li><strong>策略定位：</strong>同意「育兒實用工具箱」作為第三條路，工具價值是主要綁定理由。</li>
+              <li><strong>研究投入：</strong>先研究家長深層痛點與現有替代方案，不先由功能倒推需求。</li>
+              <li><strong>首波範圍：</strong>從四個方向中選 1–2 個做原型，不一次開發完整工具箱。</li>
+              <li><strong>衡量方式：</strong>三路採共同漏斗口徑，同時看媒體效率、完成綁定與名單年齡品質。</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <footer class="closing">
+        <div class="wrap">
+          <div class="eyebrow">CONCLUSION</div>
+          <h2>第三條路不是再做一個活動網站，而是建立家長遇到問題時，會想到並願意回來使用的入口。</h2>
+          <p>品牌先替家長降低真實的育兒決策負擔，家長再以完成 BCL 綁定解鎖完整價值。四個工具只是目前示例；真正的內容，應由家長的深層難處決定。</p>
+          <div class="foot">BCL 名單蒐集第三條路｜內部方向提案版｜正式預算、KPI、競品現況與成效數據需於執行前另行查核。</div>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    const links = [...document.querySelectorAll('.nav a')];
+    const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const observer = new IntersectionObserver(entries => {
+      const current = entries.filter(e => e.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!current) return;
+      links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current.target.id));
+    }, { rootMargin: '-20% 0px -65% 0px', threshold: [0, .2, .5] });
+    sections.forEach(section => observer.observe(section));
+  </script>
+</body>
+</html>
