@@ -63,7 +63,10 @@
     h1 { margin: 22px 0 20px; max-width: 900px; font-size: clamp(44px, 6vw, 78px); line-height: 1.08; letter-spacing: -.05em; }
     h1 span { color: var(--blue); }
     .hero-lead { max-width: 790px; font-size: clamp(20px, 2.2vw, 29px); line-height: 1.45; color: var(--ink-2); }
-    .hero-ask { margin-top: 40px; display: inline-block; max-width: 820px; padding: 20px 24px; border-left: 5px solid var(--orange); background: var(--orange-soft); font-weight: 700; }
+    .cda-note { max-width: 820px; margin-top: 25px; padding: 16px 19px; display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: start; border: 1px solid #bfd5e6; border-radius: 14px; background: var(--blue-soft); color: var(--ink-2); }
+    .cda-note b { color: var(--blue); white-space: nowrap; }
+    .cda-note span { font-size: 15px; }
+    .hero-ask { margin-top: 22px; display: inline-block; max-width: 820px; padding: 20px 24px; border-left: 5px solid var(--orange); background: var(--orange-soft); font-weight: 700; }
     .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
     .chip { border: 1px solid var(--line); background: white; color: var(--ink-2); border-radius: 999px; padding: 6px 11px; font-size: 13px; }
     .section-head { display: grid; grid-template-columns: 150px 1fr; gap: 30px; margin-bottom: 44px; }
@@ -74,6 +77,15 @@
     .decision small { color: #9fb3c8; letter-spacing: .12em; font-weight: 800; }
     .decision blockquote { margin: 16px 0 0; font-size: clamp(25px, 3vw, 39px); line-height: 1.35; font-weight: 800; letter-spacing: -.025em; }
     .decision blockquote em { color: #ffd18a; font-style: normal; }
+    .purpose-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 22px; }
+    .purpose-card { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 27px; }
+    .purpose-card:first-child { border-left: 5px solid var(--orange); }
+    .purpose-card:last-child { border-left: 5px solid var(--blue); }
+    .purpose-label { color: var(--muted); font-size: 13px; font-weight: 900; letter-spacing: .1em; }
+    .purpose-card h3 { margin: 10px 0 9px; font-size: 25px; line-height: 1.35; }
+    .purpose-card p { margin: 0; color: var(--ink-2); }
+    .purpose-card ul { margin: 13px 0 0; padding-left: 20px; color: var(--ink-2); }
+    .purpose-card li { margin: 7px 0; }
     .route-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 28px; }
     .route { min-height: 290px; background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 25px; position: relative; }
     .route.current { border: 2px solid var(--blue); box-shadow: var(--shadow); }
@@ -191,7 +203,7 @@
       main { margin-left: 0; }
       .wrap { padding: 0 26px; }
       .hero { min-height: auto; padding: 80px 0; }
-      .route-grid, .choice-logic, .principles, .measure-grid { grid-template-columns: 1fr; }
+      .route-grid, .purpose-grid, .choice-logic, .principles, .measure-grid { grid-template-columns: 1fr; }
       .route { min-height: 235px; }
       .research-case, .tool-grid { grid-template-columns: 1fr; }
       .next-grid { grid-template-columns: 1fr 1fr; }
@@ -200,6 +212,7 @@
       section { padding: 60px 0; }
       .wrap { padding: 0 18px; }
       .section-head { grid-template-columns: 1fr; gap: 8px; }
+      .cda-note { grid-template-columns: 1fr; gap: 4px; }
       .arrow-band, .funnel { grid-template-columns: 1fr; }
       .arrow-step + .arrow-step { border-left: 0; border-top: 1px solid var(--line); }
       .arrow-step + .arrow-step::before, .funnel-step + .funnel-step::before { display: none; }
@@ -224,8 +237,8 @@
       .hero::after { display: none; }
       h1 { font-size: 38pt; }
       h2 { font-size: 27pt; }
-      .route-grid, .choice-logic, .principles, .measure-grid, .tool-grid { gap: 8px; }
-      .route, .choice-card, .principle, .measure, details.tool, .state-card, .next { box-shadow: none; break-inside: avoid; }
+      .route-grid, .purpose-grid, .choice-logic, .principles, .measure-grid, .tool-grid { gap: 8px; }
+      .route, .purpose-card, .choice-card, .principle, .measure, details.tool, .state-card, .next { box-shadow: none; break-inside: avoid; }
       details.tool .tool-body { display: block; }
       .plus { display: none; }
     }
@@ -238,7 +251,7 @@
       <div class="brand"><span class="brand-mark">BCL</span><span>第三條路</span></div>
       <p class="rail-note">方向提案版<br>供主管決策與跨部門對齊</p>
       <nav class="nav">
-        <a href="#decision">決策摘要</a>
+        <a href="#decision">先說結論</a>
         <a href="#why">為何是工具箱</a>
         <a href="#pain">從難處出發</a>
         <a href="#tools">工具構想</a>
@@ -255,6 +268,7 @@
           <div class="eyebrow">BCL 名單蒐集策略提案</div>
           <h1>第三條路：<br><span>育兒實用工具箱</span></h1>
           <p class="hero-lead">從一次性的活動與獎品誘因，走向以真實育兒需求換得綁定意願的長期入口。</p>
+          <div class="cda-note"><b>這份提案怎麼形成</b><span>本資料運用 CDA（Context・Data・AI）的分析方式，整合目前的 BCL 任務脈絡、既有資料觀察與 AI 協作討論，整理出第三條路的方向與初步工具構想。</span></div>
           <div class="hero-ask">本次希望確認：是否同意以「實用知識 × 互動工具 × 會員解鎖」作為第三條名單蒐集路徑，並進入家長痛點研究與首波工具原型階段。</div>
           <div class="hero-meta">
             <span class="chip">家長使用，不是兒童遊戲</span>
@@ -268,12 +282,31 @@
       <section id="decision">
         <div class="wrap">
           <div class="section-head">
-            <div class="section-no">01 / DECISION</div>
-            <div><h2>我們要改變的，不只是活動題目</h2><p class="section-intro">第三條路要建立一個新的名單交換邏輯：品牌先提供可立即使用的價值，家長再以完成 BCL 綁定解鎖完整工具。</p></div>
+            <div class="section-no">01 / 先說結論</div>
+            <div><h2>第三條路，是換一種方式接觸家長</h2><p class="section-intro">心理測驗、問答和育兒大調查仍然有它們的作用；但也有一群家長，對這類活動、調查或抽獎不一定會有反應，卻正在找能直接幫助育兒生活的建議或工具。第三條路就是希望補上這群人，用不同的內容價值，增加接觸與綁定的機會。</p></div>
           </div>
           <div class="decision">
-            <small>一句話提案</small>
-            <blockquote>把綁定從「參加活動的門票」，轉變為<em>「使用實用育兒工具的會員資格」</em>。</blockquote>
+            <small>簡單說</small>
+            <blockquote>不是再換一個活動題目，而是把「請你來參加活動」改成<em>「這裡有個工具，能幫你處理眼前的育兒問題」</em>。</blockquote>
+          </div>
+
+          <div class="purpose-grid" aria-label="第三條路的目的與目標">
+            <article class="purpose-card">
+              <div class="purpose-label">為什麼要做｜目的</div>
+              <h3>補上前兩條路比較難接觸到的家長</h3>
+              <p>有些家長不會因為測驗、問卷或抽獎停下來，但會對「現在就能幫我少查一點、少想一步」的內容有興趣。我們希望先用實際幫助建立關係，再讓綁定成為取得完整工具的合理下一步。</p>
+            </article>
+            <article class="purpose-card">
+              <div class="purpose-label">希望做到什麼｜目標</div>
+              <h3>建立一條可以持續發展、也能清楚驗證成效的新入口</h3>
+              <ul>
+                <li>接觸對活動型內容反應較低，但重視實用育兒協助的家長。</li>
+                <li>與心理測驗、問答和問卷形成明確不同的第三條路。</li>
+                <li>用完整工具內容，促使家長完成資料提供與手機驗證。</li>
+                <li>吸引 7–12 個月培養族群與 12–17 個月立即銷售族群。</li>
+                <li>用投廣漏斗、BCL 成本與名單品質判斷這條路是否值得擴大。</li>
+              </ul>
+            </article>
           </div>
 
           <div class="route-grid" aria-label="三條名單蒐集路徑比較">
@@ -281,19 +314,19 @@
               <div class="route-tag">ROUTE 01｜既有</div>
               <h3>心理測驗／問答活動</h3>
               <p>多由外部代操，以好奇結果、短期趣味，加上抽獎或禮物吸引參與。</p>
-              <div class="logic">主要交換：完成互動 → 取得結果／抽獎資格</div>
+              <div class="logic">家長為什麼來：想看結果，也有抽獎／禮物誘因</div>
             </article>
             <article class="route">
               <div class="route-tag">ROUTE 02｜既有</div>
               <h3>育兒大調查</h3>
               <p>由內部自操，讓家長分享育兒經驗、查看調查結果，並搭配抽獎或禮物。</p>
-              <div class="logic">主要交換：提供意見 → 查看結果／抽獎資格</div>
+              <div class="logic">家長為什麼來：分享經驗、看調查結果，也有抽獎／禮物誘因</div>
             </article>
             <article class="route current">
               <div class="route-tag">ROUTE 03｜本次提案</div>
               <h3>育兒實用工具箱</h3>
               <p>針對家長當下的決策困難，透過少量輸入，交付可直接採取的結果。</p>
-              <div class="logic">主要交換：完成綁定 → 解鎖完整實用價值</div>
+              <div class="logic">家長為什麼來：當下真的需要這個工具</div>
             </article>
           </div>
         </div>
